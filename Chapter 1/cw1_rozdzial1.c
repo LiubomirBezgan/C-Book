@@ -12,7 +12,7 @@ int main(void)
 	// EN delete next "//" if you going to use English verion
 	//printf ("Hi Big Man! \nPlease enter an inch value:\n");
 
-	// PL usuń następne "//", jeśli zamierzasz użyć wersję polską
+	// PL usuń następne "//", jeśli zamierzasz użyć wersji polskiej
 	//printf ("Siema, Byku! \nProsze wprowadzic wartosc w calach:\n");
 
 	scanf("%e", &in);
@@ -21,7 +21,7 @@ int main(void)
 	// EN delete next "//" if you going to use English verion
 	//printf ("The centimeter value equals %e cm", out);
 
-	// PL usuń następne "//", jeśli zamierzasz użyć wersję polską
+	// PL usuń następne "//", jeśli zamierzasz użyć wersji polskiej
 	//printf ("Wartosc w cm: %e cm", out);
 
 
