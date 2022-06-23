@@ -10,7 +10,7 @@ int main(void)
 	float out;
 
 	// EN delete next "//" if you going to use English verion
-	//printf ("Hi Big Man! \nPlease enter an inch value:\n");
+	printf ("Hi Big Man! \nPlease enter an inch value:\n");
 
 	// PL usuń następne "//", jeśli zamierzasz użyć wersji polskiej
 	//printf ("Siema, Byku! \nProsze wprowadzic wartosc w calach:\n");
@@ -18,11 +18,11 @@ int main(void)
 	scanf("%f", &in);
 	out = in * 2.54;
 
-	//EN delete next "//" if you going to use English verion
-	//printf ("The centimeter value equals %.2f cm", out);
+	// EN delete next "//" if you going to use English verion
+	printf ("The centimeter value equals %.2f cm", out);
 
 	// PL usuń następne "//", jeśli zamierzasz użyć wersji polskiej
-	//printf ("Wartosc w cm: %.2e cm", out);
+	//printf ("Wartosc w cm: %.2f cm", out);
 
 	getchar();
 	getchar();
