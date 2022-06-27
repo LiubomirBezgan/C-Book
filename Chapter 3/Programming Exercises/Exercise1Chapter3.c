@@ -13,6 +13,11 @@ int main(void)
 	long long_var;
 	long long long_long_var;
 	double double_var;
+
+	unsigned char_var1;
+	unsigned short_var1;
+	unsigned int_var1;
+	long long long_var1;
 	  
 	// w C99 zdefionowano format %zd dla rozmiarów
 	printf("Typ char \tma rozmiar %zd bajt.\n", sizeof(char));
@@ -25,7 +30,7 @@ int main(void)
 
 	// maksymalne wartości różnych typów
 	printf("Maksymalna wartosc typu char\t\twynosi %d.\n", CHAR_MAX);
-	printf("Maksymalna wartosc typu short\t\twynosi %d.\n", SHRT_MAX);
+	printf("Maksymalna wartosc typu short\t\twynosi %hd.\n", SHRT_MAX);
 	printf("Maksymalna wartosc typu int\t\twynosi %d.\n", INT_MAX);
 	printf("Maksymalna wartosc typu unsigned\twynosi %u.\n", UINT_MAX);
 	printf("Maksymalna wartosc typu long\t\twynosi %ld.\n", LONG_MAX);
@@ -40,7 +45,7 @@ int main(void)
 	long_var = LONG_MAX;
 	long_long_var = LLONG_MAX;
 	double_var = DBL_MAX;
-	printf("Nadanie zmiennym maksymalnej wartosci\nStan programu: \nc \t%#c (%d), \ns \t%d, \ni \t%d, \nu \t%u, \nlng \t%ld, \nlnglng \t%lld, \ndbl \t%e\n\n",
+	printf("Nadanie zmiennym maksymalnej wartosci\nStan programu: \nc \t%#c (%d), \ns \t%hd, \ni \t%d, \nu \t%u, \nlng \t%ld, \nlnglng \t%lld, \ndbl \t%e\n\n",
 		char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
 
 	// próba przekroczenia limitu
@@ -51,8 +56,18 @@ int main(void)
 	long_var = long_var + 1;
 	long_long_var = long_long_var + 1;
 	double_var = double_var + 0.000001e+308;
-	printf("Proba przekroczenia limitu\nStan programu: \nc \t%c (%d), \ns \t%d, \ni \t%d, \nu \t%u, \nlng \t%ld, \nlnglng \t%lld, \ndbl \t%e\n\n",
+	printf("Proba przekroczenia limitu\nStan programu: \nc \t%#c (%d), \ns \t%hd, \ni \t%d, \nu \t%u, \nlng \t%ld, \nlnglng \t%lld, \ndbl \t%e\n\n",
 		char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
+
+	char_var1 = 128;
+	short_var1 = 32768;
+	int_var1 = 2147483648;
+	long_var1 = 2147483648;
+
+	// przepełnienie
+	puts("Proba przepelnienia");
+	printf("char_var1 \t= %u, \t\tlecz nie %c\nshort_var1 \t= %u, \t\tlecz nie %hd\nint_var1 \t= %u, \t\tlecz nie %d\nlong_var1 \t= %lld, \tlecz nie %ld\n",
+		char_var1, char_var1, short_var1, short_var1, int_var1, int_var1, long_var1,long_var1);
 
 	getchar();
 	return 0;

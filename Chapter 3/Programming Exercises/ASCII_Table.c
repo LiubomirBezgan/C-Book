@@ -12,10 +12,10 @@ int main(void)
 
 	while (ch != 127)
 	{
-		printf("%d\t%c\n", ch, ch);
+		printf("%d\t%#c\n", ch, ch);
 		ch=ch+1;
 	}
-	printf("%d\t%c\n", ch, ch);
+	printf("%d\t%#c\n", ch, ch);
 	getchar();
 	return 0;
 }
