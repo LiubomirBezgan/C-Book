@@ -75,13 +75,13 @@ int main(void)
 
 	//niedomiar zmiennej zmiennoprzecinkowej
 	puts("BADANIE NIEDOMIARU ZMIENNYCH ZMIENNOPRZECINKOWYCH:");
-	printf("FLT_MANT_DIG = \t\t%d.\n", FLT_MANT_DIG);
-	printf("FLT_DIG = \t\t%d.\n", FLT_DIG);
-	printf("FLT_MIN_10_EXP = \t%d.\n", FLT_MIN_10_EXP);
-	printf("FLT_MAX_10_EXP = \t%d.\n", FLT_MAX_10_EXP);
-	printf("FLT_MIN = \t\t%e.\n", FLT_MIN);
-	printf("FLT_MAX = \t\t%e.\n", FLT_MAX);
-	printf("FLT_EPSILON = \t\t%e.\n\n", FLT_EPSILON);
+	printf("FLT_MANT_DIG = \t\t%d\n", FLT_MANT_DIG);
+	printf("FLT_DIG = \t\t%d\n", FLT_DIG);
+	printf("FLT_MIN_10_EXP = \t%d\n", FLT_MIN_10_EXP);
+	printf("FLT_MAX_10_EXP = \t%d\n", FLT_MAX_10_EXP);
+	printf("FLT_MIN = \t\t%e\n", FLT_MIN);
+	printf("FLT_MAX = \t\t%e\n", FLT_MAX);
+	printf("FLT_EPSILON = \t\t%e\n\n", FLT_EPSILON);
 
 	float_var1 =  1.175494e-038;
 
@@ -89,7 +89,7 @@ int main(void)
 	int i = 0; // licznik
 	while (i!=25)
 	{
-		printf("float_var1 = %e, \t a rozmiar %zd bajtow\n", float_var1, sizeof(float_var1));
+		printf("float_var1 = %e, a rozmiar %zd bajtow\n", float_var1, sizeof(float_var1));
 		float_var1 = float_var1 / 2;
 		i=i+1;
 	}
@@ -110,7 +110,7 @@ int main(void)
 	int j = 0; // licznik
 	while (j!=25)
 	{
-		printf("double_var1 = %e, \t a rozmiar %zd bajtow\n", double_var1, sizeof(double_var1));
+		printf("double_var1 = %e, a rozmiar %zd bajtow\n", double_var1, sizeof(double_var1));
 		double_var1 = double_var1 / 5;
 		j=j+1;
 	}
