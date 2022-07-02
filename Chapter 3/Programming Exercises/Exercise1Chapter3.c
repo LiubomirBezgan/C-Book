@@ -63,7 +63,7 @@ int main(void)
 	long_long_var = LLONG_MAX;
 	double_var = DBL_MAX;
 	printf("Nadanie zmiennym maksymalnej wartosci\nStan programu: \nc \t%#4c (%4d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng \t%20lld, \ndbl \
-\t%14e\n\n", char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
+\t%14e.\n\n", char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
 
 	// próba przekroczenia limitu
 	char_var = char_var + 1;
@@ -74,9 +74,9 @@ int main(void)
 	long_long_var = long_long_var + 1;
 	double_var = double_var + 0.000001e+308;
 	printf("Proba przekroczenia limitu\nStan programu: \nc \t%#4c (%4d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng"
-			"\t%20lld, \ndbl \t%4e\n\n",char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
+			"\t%20lld, \ndbl \t%4e.\n\n",char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
 
-	char_var1 = 1323;
+	char_var1 = 1322;
 	short_var1 = 33768;
 	int_var1 = 2247483648;
 	long_var1 = 222147483648;
