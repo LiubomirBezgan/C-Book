@@ -1,5 +1,5 @@
 // Wyświetla rozmiary typów oraz wyniki dokonan przepełnienia i niedomiaru, wykorzystujac narzedzia do formatowania
-// v4.0
+// v4.1
 #include <stdio.h>
 #include <limits.h>	// granice liczb calkowitych
 #include <float.h>	// granice liczb zmiennoprzecinkowych
@@ -62,8 +62,8 @@ int main(void)
 	long_var = LONG_MAX;
 	long_long_var = LLONG_MAX;
 	double_var = DBL_MAX;
-	printf("Nadanie zmiennym maksymalnej wartosci\nStan programu: \nc \t%#4c (%4d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng \t%20lld, \ndbl \
-\t%14e.\n\n", char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
+	printf("Nadanie zmiennym maksymalnej wartosci\nStan programu: \nc \t%#4c (% d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng \t% lld, \ndbl \
+\t% e.\n\n", char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
 
 	// próba przekroczenia limitu
 	char_var = char_var + 1;
@@ -73,8 +73,8 @@ int main(void)
 	long_var = long_var + 1;
 	long_long_var = long_long_var + 1;
 	double_var = double_var + 0.000001e+308;
-	printf("Proba przekroczenia limitu\nStan programu: \nc \t%#4c (%4d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng"
-			"\t%20lld, \ndbl \t%4e.\n\n",char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
+	printf("Proba przekroczenia limitu\nStan programu: \nc \t%#4c (% d), \ns \t%11hd, \ni \t%11d, \nu \t%11u, \nlng \t%11ld, \nlnglng"
+			"\t% lld, \ndbl \t% e.\n\n",char_var, char_var, short_var, int_var, unsigned_var, long_var, long_long_var, double_var);
 
 	char_var1 = 1322;
 	short_var1 = 33768;
@@ -83,15 +83,15 @@ int main(void)
 
 	// przepełnienie
 	puts("Proba przepelnienia");
-	printf("char_var1 \t= %12u, lecz nie %#c\nshort_var1 \t= %12u, lecz nie %hd\nint_var1 \t= %12u, lecz nie %d\nlong_var1 \t= %12lld, lecz nie %ld\n\n",
+	printf("char_var1 \t= %12u, lecz nie %#2c\nshort_var1 \t= %12u, lecz nie %hd\nint_var1 \t= %12u, lecz nie %d\nlong_var1 \t= %12lld, lecz nie %ld\n\n",
 		char_var1, char_var1, short_var1, short_var1, int_var1, int_var1, long_var1,long_var1);
 
 	//niedomiar zmiennej zmiennoprzecinkowej
 	puts("BADANIE NIEDOMIARU ZMIENNYCH ZMIENNOPRZECINKOWYCH:");
-	printf("FLT_MANT_DIG \t= %3d\n", FLT_MANT_DIG);
+	printf("FLT_MANT_DIG \t= % d\n", FLT_MANT_DIG);
 	printf("FLT_DIG \t= %3d\n", FLT_DIG);
-	printf("FLT_MIN_10_EXP \t= %3d\n", FLT_MIN_10_EXP);
-	printf("FLT_MAX_10_EXP \t= %3d\n", FLT_MAX_10_EXP);
+	printf("FLT_MIN_10_EXP \t= % d\n", FLT_MIN_10_EXP);
+	printf("FLT_MAX_10_EXP \t= % d\n", FLT_MAX_10_EXP);
 	printf("FLT_MIN \t= %e\n", FLT_MIN);
 	printf("FLT_MAX \t= %e\n", FLT_MAX);
 	printf("FLT_EPSILON \t= %e\n\n", FLT_EPSILON);
@@ -111,8 +111,8 @@ int main(void)
 	puts("\nA teraz DOUBLE:");
 	printf("DBL_MANT_DIG \t= %4d\n", DBL_MANT_DIG);
 	printf("DBL_DIG \t= %4d\n", DBL_DIG);
-	printf("DBL_MIN_10_EXP \t= %4d\n", DBL_MIN_10_EXP);
-	printf("DBL_MAX_10_EXP \t= %4d\n", DBL_MAX_10_EXP);
+	printf("DBL_MIN_10_EXP \t= % d\n", DBL_MIN_10_EXP);
+	printf("DBL_MAX_10_EXP \t= % d\n", DBL_MAX_10_EXP);
 	printf("DBL_MIN \t= %e\n", DBL_MIN);
 	printf("DBL_MAX \t= %e\n", DBL_MAX);
 	printf("DBL_EPSILON \t= %e\n\n", DBL_EPSILON);
