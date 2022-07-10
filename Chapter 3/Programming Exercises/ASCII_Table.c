@@ -1,12 +1,12 @@
-// ASCII Table
-// v1.0
+// ASCII Table (MISRA compliant)
+// v2.0
 #include <stdio.h>
 #include <limits.h>	// granice liczb calkowitych
 
 int main(void)
 {
 	// definicja zmiennych
-	char ch = CHAR_MIN;
+	signed char ch = CHAR_MIN;
 
 	printf("ASCII Table\n\nKOD\tSYMBOL\n");
 
