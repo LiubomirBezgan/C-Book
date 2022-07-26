@@ -1,4 +1,4 @@
-// opis - Exercise?Chapter?.c
+// English alphabet - Exercise1Chapter6.c
 // v1.0
 #define ROZMIAR 26 
 #include <stdio.h>
