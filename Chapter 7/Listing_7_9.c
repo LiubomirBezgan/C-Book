@@ -1,5 +1,5 @@
 // Program wykorzystuje continue do pominiecia czesci petli - Listing_7_9.c
-// v1.0
+// v1.1
 #include <stdio.h>
 
 int main(void)
@@ -18,7 +18,7 @@ int main(void)
 	{
 		if (wynik < MIN || wynik > MAX)
 		{
-			printf("%0.1f jest nieprawidlowa wartoscia.\n", wynik);
+			printf("%0.1f jest nieprawidlowa wartoscia.\n\n", wynik);
 			continue;				// skok do warunku wykonania petli
 		}
 		printf("Przyjeto: %0.1f\n", wynik);
@@ -26,13 +26,13 @@ int main(void)
 		max = (wynik > max)? wynik : max;
 		suma += wynik;
 		n++;
-		puts("Podaj kolejny wynik (albo 'q' zeby zakonczyc):");
+		puts("\nPodaj kolejny wynik (albo 'q' zeby zakonczyc):");
 	}
 	
 	if (n>0)
 	{
-		printf("Srednia z %d wynikow wynosi %0.1f.\n", n, suma/n);
-		printf("Najnizszy = %0.1f, najwyzszy = %0.1f\n", min, max);
+		printf("\nSrednia z %d wynikow wynosi %0.1f.\n", n, suma/n);
+		printf("Najnizszy = %0.1f, najwyzszy = %0.1f.\n", min, max);
 	}
 	else
 		puts("Nie podano zadnych prawidlowych wynikow.");
