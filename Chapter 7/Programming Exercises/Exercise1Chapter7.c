@@ -1,4 +1,4 @@
-// opis - Exercise1Chapter7.c
+// licznik odstepow, znakow nowej linii oraz innych znakow - Exercise1Chapter7.c
 // v1.0
 #include <stdio.h>
 
