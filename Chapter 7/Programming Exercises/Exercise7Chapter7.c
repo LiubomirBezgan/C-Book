@@ -8,8 +8,8 @@
 #define PODATEK1 0.15
 #define PODATEK2 0.20
 #define PODATEK3 0.25
-#define DNI 5
-#define GODZIN 8
+#define DNI 5				// 5 roboczych dni w tygodniu
+#define GODZIN 8			// 8 godzin dziennie
 
 int main(void)
 {
