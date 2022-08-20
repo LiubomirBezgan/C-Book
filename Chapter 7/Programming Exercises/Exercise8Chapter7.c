@@ -47,7 +47,7 @@ int main(void)
 				break;
 			}
 			case '4' : {
-				podstawa = 35;
+				podstawa = 45;
 				symbol = true;
 				break;
 			}
@@ -60,21 +60,22 @@ int main(void)
 				puts("Zly symbol.\nPodaj liczbe od 1 do 5");
 				symbol = false;
 				while ((ch = getchar()) != '\n')
-					continue;
+					continue;								// czyszczenie bufora
 		}
 	}
 	if (podstawa == 0)				// 5) wyjscie
 		puts("Milego dnia!");
 	else
 	{
-		// obliczenia
+		// obliczenie wynagrodzenia netto
 		puts("Podaj liczbe przepracowanych godzin w tygodniu:");	
 		scanf("%f", &godziny_w_t);
 		if (godziny_w_t <= DNI * GODZIN)
 			pensja_netto = 	godziny_w_t * podstawa;
 		else
 			pensja_netto = DNI * GODZIN * podstawa + (godziny_w_t - DNI * GODZIN) * podstawa * NADGODZINY;
-	
+		
+		// obliczenie podatku
 		if (pensja_netto <= PROG1)
 			podatek = PODATEK1 * pensja_netto;
 		else if (pensja_netto <= PROG2)
