@@ -59,7 +59,7 @@ int main(void)
 			default :
 				puts("Zly symbol.\nPodaj liczbe od 1 do 5");
 				symbol = false;
-				while ((ch = getchar()) != '\n')
+				while ((getchar()) != '\n')
 					continue;								// czyszczenie bufora
 		}
 	}
