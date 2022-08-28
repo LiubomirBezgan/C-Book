@@ -21,9 +21,9 @@ int main(void)
 /*  Variables -----------------------------------------------------------------*/
 	bool symbol = false;			// flaga: czy zostal wprowadzony wlasciwy symbol?
 	bool koniec = false;			// flaga: czy nalezy skonczyc przyjmowanie zamowienia?
-	float waga_arbuzy=0, waga_buraki=0, waga_cebula=0, waga_calosc;
+	float waga_arbuzy = 0, waga_buraki = 0, waga_cebula = 0, waga_calosc;
 	float wartosc_arbuzy, wartosc_buraki, wartosc_cebula, wartosc_calosc;
-	float zamawiane_kg, do_zaplaty, rabat=0, koszt_przesylki;
+	float zamawiane_kg, do_zaplaty, rabat = 0, koszt_przesylki;
 
 	
 /*  Description ---------------------------------------------------------------*/
@@ -64,7 +64,7 @@ int main(void)
 	    				break;
 	    			}
 	    			case 'K' : {
-	    				puts("Koniec przyjmowania zamowienia.");
+	    				puts("Koniec przyjmowania zamowienia.\n");
 	    				symbol = true;
 	    				koniec = true;
 	    				break;	    				
@@ -90,21 +90,21 @@ int main(void)
 	    if (wartosc_calosc > PROG_ZAMOWIENIE)
 	    	rabat = wartosc_calosc * RABAT;
 	    if (waga_calosc > 20)
-	        koszt_przesylki = KOSZT2 + KOSZT_DODATKOWY * (waga_arbuzy + waga_buraki + waga_cebula);
+	        koszt_przesylki = KOSZT2 + KOSZT_DODATKOWY * waga_calosc;
 	    else if (waga_calosc > 5)
 	        koszt_przesylki = KOSZT1;
 	    else
 	        koszt_przesylki = KOSZT0;
-	   
 	    do_zaplaty = koszt_przesylki + (wartosc_calosc - rabat);
 	    // wyświetlenie wyniku
-	    printf("Ceny jednastkowe za kilogram: arbuzy - %.2f kg, buraki - %.2f kg, cebula - %.2f kg\n", CENA_ARBUZY, CENA_BURAKI, CENA_CEBULA);
-	    printf("Ilosc zamowionych warzyw: arbuzy - %.2f kg, buraki - %.2f kg, cebula - %.2f kg\n", waga_arbuzy, waga_buraki, waga_cebula);
-	    printf("Wartosc dla kazdego z zamowionych towarow: arbuzy - %.2f zl, buraki - %.2f zl, cebula - %.2f zl\n", wartosc_arbuzy, wartosc_buraki, wartosc_cebula);
-	    printf("Wartosc calosci zamowienia: %.2f zl\n", wartosc_calosc);
-	    printf("Wysokosc przyslugujacego rabatu: %.2f zl\n", rabat);
-	    printf("Koszt przesylki: %.2f zl\n", koszt_przesylki);
-	    printf("Calkowity koszt zamowienia: %.2f zl\n", do_zaplaty);
+	    printf("Ceny jednastkowe za kilogram:              arbuzy - %7.2f kg, buraki - %7.2f kg, cebula - %7.2f kg\n", CENA_ARBUZY, CENA_BURAKI, CENA_CEBULA);
+	    printf("Ilosc zamowionych warzyw:                  arbuzy - %7.2f kg, buraki - %7.2f kg, cebula - %7.2f kg\n", waga_arbuzy, waga_buraki, waga_cebula);
+	    printf("Wartosc dla kazdego z zamowionych towarow: arbuzy - %7.2f zl, buraki - %7.2f zl, cebula - %7.2f zl\n", wartosc_arbuzy, wartosc_buraki, wartosc_cebula);
+	    printf("Waga calosci zamowienia:                   %7.2f kg\n", waga_calosc);
+	    printf("Wartosc calosci zamowienia:                %7.2f zl\n", wartosc_calosc);
+	    printf("Wysokosc przyslugujacego rabatu:           %7.2f zl\n", rabat);
+	    printf("Koszt przesylki:                           %7.2f zl\n", koszt_przesylki);
+	    printf("Calkowity koszt zamowienia:                %7.2f zl\n", do_zaplaty);
 
 /*  Ending --------------------------------------------------------------------*/
 	puts("\nWpisz '#', zeby zamknac program:");
