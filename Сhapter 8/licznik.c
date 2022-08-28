@@ -1,13 +1,12 @@
-// opis - Exercise7Chapter7.c
+// licznik.c - program podaje liczbe znakow, slow i wierszy w pliku
 // v1.0
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
-#define STOP '|'
 
 int main(void)
 {
-	char c;							// biezacy znak
+	int c;							// biezacy znak
 	char poprz; 					// poprzedni znak
 	long ile_znakow = 0L;			// liczba znakow
 	int ile_wierszy = 0;			// liczba linii
@@ -15,10 +14,10 @@ int main(void)
 	int ile_np_wierszy = 0;			// liczba niepelnych wierszy
 	bool w_slowie = false;			// == true, jesli c znajduje sie w slowie
 
-	puts("Wprowadz tekst do analizy (znak '|' przerywa prace programu):");
+	puts("Program podaje liczbe znakow, slow i wierszy w pliku:");
 	poprz = '\n';					// uzyty do rozpoznania konca linii
 
-	while ((c = getchar()) != STOP)
+	while ((c = getchar()) != EOF)
 	{
 		ile_znakow++;				// liczy znaki
 		if (c == '\n')
@@ -36,8 +35,5 @@ int main(void)
 	if (poprz != '\n')
 		ile_np_wierszy = 1;
 	printf("znakow = %ld, slow = %d, wierszy = %d, niepelnych wierszy = %d\n", ile_znakow, ile_slow, ile_wierszy, ile_np_wierszy);
-
-	getchar();
-	getchar();
 	return 0;
 }
