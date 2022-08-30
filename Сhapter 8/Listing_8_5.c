@@ -17,6 +17,8 @@ int main(void)
 	{
 		if (scanf("%d %d", &rzedy, &kolumny) != 2)
 			break;
+		while ((getchar()) != '\n')
+			continue;
 		wyswietl(ch, rzedy, kolumny);
 		printf("Podaj kolejny znak i dwie liczby calkowite:\n");
 		printf("Aby zakonczyc, zasymuluj EOF.\n");
