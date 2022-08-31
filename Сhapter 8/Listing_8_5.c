@@ -1,5 +1,5 @@
-//  pokaz_zn - Exercise?Chapter?.c
-//  v1.0
+//  pokaz_zn - Listing_8_5.c
+//  v1.1
 /*  Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 void wyswietl(char c, int wysokosc, int szerokosc);
