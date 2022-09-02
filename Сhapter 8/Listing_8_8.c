@@ -1,5 +1,5 @@
 //  techniki realizacji menu - Listing_8_8.c
-//  v1.0
+//  v1.1
 /*  Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include <ctype.h>
@@ -40,17 +40,16 @@ int main(void)
 void liczenie(void)
 {
 	int n, i;
+
 	puts("Jak dlugo liczyc? Podaj liczbe calkowita:");
 	n = pobierz_int();
 	for (i = 1; i <= n; i++)
 		printf("%d\n", i);
-	/* while (getchar() != '\n')
-		continue; */
 }
 
 char pobierz_wybor(void)
 {
-	char ch;
+	int ch;
 
 	puts("Wpisz wybrana litere:");
 	puts("a. porada         b. alarm");
@@ -68,7 +67,8 @@ char pobierz_pierwszy(void)
 {
 	int ch;
 
-	ch = getchar();
+	while (!isgraph(ch = getchar()))		// pobranie pierwszego znaku drukowanego
+		continue;
 	while (getchar() != '\n')
 		continue;
 	return ch;
@@ -83,7 +83,7 @@ int pobierz_int(void)
 	{
 		while ((ch = getchar()) != '\n')
 			putchar(ch);					// pomija bledne dane wejsciowe
-		puts(" nie jest liczba calkowita.\nProsze podac wartosc calkowita, np. 25, -178 czy 3: "); //???????????
+		printf(" nie jest liczba calkowita.\nProsze podac wartosc calkowita, np. 25, -178 czy 3: ");
 	}
 	return we;
 }
