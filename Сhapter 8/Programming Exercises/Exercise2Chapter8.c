@@ -32,14 +32,14 @@ int main(void)
 		kod_ASCII_pary(ch);
 		if (ch == '\n')
 		{
-			puts("");
+			putchar('\n');
 			liczba_par = 0;
 		}
 		else
 			liczba_par++;
 		if (liczba_par == WIERSZ)
 		{
-			puts("");
+			putchar('\n');
 			liczba_par = 0;
 		}	
 	}
