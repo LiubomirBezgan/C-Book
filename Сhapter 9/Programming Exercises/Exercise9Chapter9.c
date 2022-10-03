@@ -1,5 +1,5 @@
-//  Funkcja zwracajaca potege liczby. Petla - Exercise8Chapter9.c
-//  v1.1
+//  Funkcja zwracajaca potege liczby. Rekurencja - Exercise9Chapter9.c
+//  v1.0
 /*  Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 double potega(double liczba, int do_potegi);		// prototyp ANSI
@@ -19,7 +19,7 @@ int main(void)
 	scanf("%lf", &x);
 	printf("Podaj potege: ");
 	scanf("%d", &y);
-	printf("%lf do potegi %d wynosi %le.\n", x, y, potega(x, y));
+	printf("%lf do potegi %d wynosi %lf.\n", x, y, potega(x, y));
 
 /*  Ending --------------------------------------------------------------------*/
 	puts("\nWpisz '#', zeby zamknac program:");
@@ -34,7 +34,6 @@ int main(void)
 double potega(double liczba, int do_potegi)			// definicja funkcji
 {
 	double pot = 1;
-	int i;
 
 	if (0 == liczba)
 	{
@@ -51,17 +50,11 @@ double potega(double liczba, int do_potegi)			// definicja funkcji
 	{
 		if (do_potegi > 0)
 		{
-			for (i = 1; i <= do_potegi; i++)
-				{
-					pot *= liczba;
-				}
+			pot = liczba * potega(liczba, do_potegi - 1);
 		}
 		else if (do_potegi < 0)
 		{
-			for (i = 1; i <= (-1 * do_potegi); i++)
-				{
-					pot *= 1 / liczba;
-				}
+			pot = (1 / liczba) * potega(liczba, do_potegi + 1);
 		}
 	}
 	return pot;										// zwrot wartosci pot
