@@ -1,7 +1,8 @@
 // Question10Chapter11.c
+// v2.0
 #include <stdio.h>
 #define DLUGOSC 81
-int MyStrlen(char * string);
+int MyStrlen(const char * string);
 char * wczytaj(char *z, int ile);
 
 int main(void)
@@ -18,13 +19,12 @@ int main(void)
 	return 0;
 }
 
-int MyStrlen(char * string)
+int MyStrlen(const char * string)
 {
 	int licznik = 0;
-	while (*string != '\0')
+	while (*string++ != '\0')
 	{
 		licznik++;
-		string++;
 	}
 
 	return licznik;
