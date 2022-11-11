@@ -29,7 +29,7 @@ char * wczytaj(char *z, int ile)
 		}
 		if (*z == '\n')
 		{
-			*z = '\0'; 				// znak nowego wiersza -> znak pusty
+			*z = '\0'; 					// znak nowego wiersza -> znak pusty
 		}
 		else							// z[i] = '\0'
 		{
