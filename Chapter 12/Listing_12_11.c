@@ -3,9 +3,9 @@
 #include "rzutkosc.h"
 #include <stdio.h>
 #include <stdlib.h>
-int liczba_rzutow = 0;
+int liczba_rzutow = 0; 				// lacznosc zewnetrzna
 
-static int rzucaj(int scianki)
+static int rzucaj(int scianki)		// prywatne w ramach pliku
 {
 	int oczka;
 	oczka = rand() % scianki + 1;
