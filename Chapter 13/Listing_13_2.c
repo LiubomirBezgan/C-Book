@@ -1,5 +1,5 @@
 //  zmniejsza rozmiar Twoich plikow o dwie trzecie - Listing_13_2.c
-//  v1.0
+//  v1.1
 #include <stdio.h>
 #include <stdlib.h>				// prototyp funkcji exit()
 #include <string.h>	
@@ -27,7 +27,7 @@ int main(int argc, char * argv[])
 
 	// przygotowanie pliku wynikowego
 	strncpy(nazwa, argv[1], DL-5);
-	nazwa[strlen(nazwa) - 5] = '\0';
+	nazwa[strlen(nazwa) - 4] = '\0';
 	strcat(nazwa, ".red");
 
 	if ( (wy = fopen(nazwa, "w")) == NULL)
