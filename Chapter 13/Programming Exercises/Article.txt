@@ -1,0 +1,27 @@
+3D Printed Electronic Circuits from Fusible Alloys
+by Bartlomiej Podsiadly, Liubomir Bezgan and Marcin Sloma
+https://www.mdpi.com/2079-9292/11/22/3829
+Abstract
+This work aims to evaluate the possibility of fabricating conductive paths for printed circuit boards from low-temperature
+melting metal alloys on low-temperature 3D printed substrates and mounting through-hole electronic components
+using the fused deposition modeling for metals (FDMm) for structural electronics applications. The conductive materials are
+flux-cored solder wires Sn60Pb40 and Sn99Ag0.3Cu0.7. The deposition was achieved with a specially adapted nozzle.
+A comparison of solder wires with and without flux cores is discussed to determine whether the solder alloys exhibit
+adequate wettability and adhesion to the polymer substrate. The symmetrical astable multivibrator circuit based on
+bipolar junction transistors (BJT) was fabricated to demonstrate the possibility of simultaneous production of conductive
+tracks and through-hole mountings with this additive technique. Additional perspectives for applying this technique to
+3D-printed structural electronic circuits are also discussed.
+Keywords: structural electronics; 3D printed electronics; fused deposition modeling; fusible alloys
+
+1. Introduction
+Structural electronics is a term describing electrical and electronic components and circuits that act as construction
+elements, casings, or other types of protective dumb structures, such as vehicle bodies, and are embedded inside the
+volume of an element or conformally placed on the surface. Due to the possibility of enhancing product functionality,
+lowering production costs, or providing the opportunity for the fabrication of consumer-tailored devices, structural
+electronics is an interesting new branch of technology for ordinary production methods used in aerospace and military
+applications, home appliances, consumer electronics, the automotive industry, and civil engineering. A catchy example
+of structural electronics is the new Saint Anthony Falls Bridge in Minnesota, US, called America’s smartest bridge [1].
+The previous one collapsed in 2007, so the new one is stuffed with sensors monitoring its condition. The TactoTek
+company introduced a complete production chain from design to fabrication of fully functional injection molded and
+structural electronics using DuPont conductive materials [2]. Ford introduced an overhead control cluster fabricated with
+in-mold electronics in the automotive industry, saving up to 40 % in weight/space/cost and increasing reliability [3].

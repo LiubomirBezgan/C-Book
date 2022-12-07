@@ -1,4 +1,4 @@
-//  opis - Exercise8Chapter13.c
+//  wyswietla liczbe wystapien znaku w plikach (wiersz polecen) - Exercise8Chapter13.c
 //  v1.0
 /*  Includes ------------------------------------------------------------------*/
 #include <mylib.h>
