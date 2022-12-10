@@ -1,10 +1,8 @@
-//  rysowanie znakami I - Exercise12Chapter13.c
+//  rysowanie znakami II (VLA) - Exercise13Chapter13.c
 //  v1.0
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#define ROWS 20
-#define COLUMNS 30
 #define MAX_LENGTH 255
 int ch_to_dig(char ch);
 char conversion(int digit);
@@ -12,13 +10,15 @@ char conversion(int digit);
 int main()
 {
     char ch;
-    int array_dig[ROWS][COLUMNS];
-    char array_ch[ROWS][COLUMNS + 1];
     FILE *plik_in, *plik_out;
     char nazwa_in[MAX_LENGTH], nazwa_out[MAX_LENGTH];
     int x = 0, y = 0;                       // pozycja
+    int dlugosc_wiersza_biezaca = 0;
+    int liczba_wierszy_biezaca = 1;
+    int dlugosc_wiersza_max = 0;                // Xmax
+    int liczba_wierszy_max = 1;                 // Ymax
     
-    puts("Program przetwarza plik skladajacy sie z 600 cyfr (30x20) na rysunek w pliku testowym.\n");
+    puts("Program przetwarza plik skladajacy sie z cyfr na rysunek w pliku testowym.\n");
 
     // plik wejsciowy    
     puts("Podaj nazwe pliku wejsciowego:");
@@ -30,11 +30,37 @@ int main()
 		}
         puts("Blad. Podaj nazwe pliku wejsciowego:");
     }
-	if ( (plik_in = fopen(nazwa_in, "r")) == NULL)
+	if ( (plik_in = fopen(nazwa_in, "r")) == NULL )
 	{
 		fprintf(stderr, "Nie moge otworzyc pliku %s.\n", nazwa_in);
 		exit(EXIT_FAILURE);
 	}
+
+    // okreslenie rozmiarow tablic VLA na podstawie pliku zrodlowego
+    while ( (ch = getc(plik_in)) != EOF )
+    {
+        if (isdigit(ch))
+        {
+            dlugosc_wiersza_biezaca++;
+        }
+        else if ('\n' == ch)
+        {
+            liczba_wierszy_biezaca++;
+            if (dlugosc_wiersza_biezaca > dlugosc_wiersza_max)
+            {
+                dlugosc_wiersza_max = dlugosc_wiersza_biezaca;
+            }
+            dlugosc_wiersza_biezaca = 0;
+        }
+    }
+    liczba_wierszy_max = liczba_wierszy_biezaca;
+    
+    // przesuniecie kursora odczytu danych na początek wskazanego strumienia
+    rewind(plik_in);
+
+    // deklaracja VLA
+    int array_dig[liczba_wierszy_max][dlugosc_wiersza_max];
+    char array_ch[liczba_wierszy_max][dlugosc_wiersza_max + 1];
 
     // uzupelnienie array_dig
     while (EOF != (ch = getc(plik_in)))    
@@ -42,26 +68,26 @@ int main()
         if (isdigit(ch))
         {
             array_dig[y][x++] = ch_to_dig(ch);
-            if (x > 0 && 0 == x % COLUMNS)
+            if (x > 0 && 0 == x % dlugosc_wiersza_max)
             {
                 y++;
                 x = 0;
             }
-            if (y > ROWS)
+            if (y > liczba_wierszy_max)
             {
                 break;
             }
         }
     }
-    
+
     // uzupelnienie array_ch
-    for (y = 0; y < ROWS; y++)
+    for (y = 0; y < liczba_wierszy_max; y++)
     {
-        for (x = 0; x < COLUMNS; x++)
+        for (x = 0; x < dlugosc_wiersza_max; x++)
         {
             array_ch[y][x] = conversion(array_dig[y][x]);
         }
-        array_ch[y][COLUMNS] = '\0';
+        array_ch[y][dlugosc_wiersza_max] = '\0';
     }
 
     // plik wyjsciowy    
@@ -81,7 +107,7 @@ int main()
 	}
     
     // zapisywanie danych do pliku wyjsciowego
-    for (y = 0; y < ROWS; y++)
+    for (y = 0; y < liczba_wierszy_max; y++)
     {
         fputs(array_ch[y], plik_out);
         putc('\n', plik_out);   
