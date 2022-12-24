@@ -1,10 +1,10 @@
 //  pobiera lancuchy i je porzadkuje - Listing_11_29.c
-//  v1.0
+//  v1.1
 #include <stdio.h>
 #include <string.h>
 #define ROZMIAR 81							// granica dlugosci lancucha, wlacznie z \0
 #define GRAN 20								// maksymalna liczba wierszy
-void strlan(char *lancuchy[], int num);		// funkcja sortujaca lancuchy
+void srtlan(char *lancuchy[], int num);		// funkcja sortujaca lancuchy
 char * wczytaj(char *z, int ile);
 
 int main(void)
@@ -20,7 +20,7 @@ int main(void)
 		wsklan[licz] = dane[licz];			// ustawienie wskaznikow na lancuchy
 		licz++;
 	}
-	strlan(wsklan, licz);
+	srtlan(wsklan, licz);
 	puts("\nOto uporzadkowana lista:");
 	for (k = 0; k < licz; k++)
 	{
@@ -29,7 +29,7 @@ int main(void)
 	return 0;
 }
 
-void strlan(char *lancuchy[], int num)
+void srtlan(char *lancuchy[], int num)
 {
 	char *temp;
 	int dol, szuk;
