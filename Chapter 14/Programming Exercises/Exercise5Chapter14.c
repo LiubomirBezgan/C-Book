@@ -1,4 +1,4 @@
-//  PESEL - Exercise5Chapter14.c
+//  grades - Exercise5Chapter14.c
 //  v1.0
 #include <stdio.h>
 #define FNLEN 1020
