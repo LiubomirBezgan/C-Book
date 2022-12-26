@@ -1,27 +1,30 @@
-//  zapisuje zawartosc struktury w pliku - Exercise7Chapter14.c
-//  v1.0
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//  zapisuje zawartosc struktury w pliku z mozliwoscia modyfikacji zawartosci - Exercise7Chapter14.c
+//  v2.0
+#include <mylib.h>
 char * wczytaj (char * z, int ile);
 #define MAXTYT 40				
 #define MAXAUT 40
-#define MAXKS 10						// maksymalna liczba ksiazek
-struct ksiazka {						// definuje szablon ksiazka
+#define MAXKS 10							// maksymalna liczba ksiazek
+struct ksiazka {							// definuje szablon ksiazka
 	char tytul[MAXTYT];
 	char autor[MAXAUT];
 	float wartosc;
 };
 
+void trzy_opcje_ksiazka(struct ksiazka * wsk_ksiazka);
+void nastepna_pozycja (void);
+void modyfikacja_rekordu(struct ksiazka * wsk_ksiazka);
+void usuniecie_rekordu(struct ksiazka * wsk_ksiazka);
+
 int main(void)
 {
 	struct ksiazka bibl[MAXKS]; 			// tablica struktur typu ksiazka
 	int licznik = 0;
-	int index, licznikp;
+	int index;
 	FILE * pksiazki;
 	int rozmiar = sizeof (struct ksiazka);
 
-	if ((pksiazki = fopen("ksiazki.dat", "a+b")) == NULL)
+	if ((pksiazki = fopen("ksiazki.dat", "r+b")) == NULL)
 	{
 		fputs("Nie moge otworzyc pliku ksiazki.dat\n", stderr);
 		exit(1);
@@ -34,9 +37,9 @@ int main(void)
 			puts("Biezaca zawartosc pliku ksiazki.dat:");
 		}
 		printf("%s autorstwa %s: %.2f zl\n", bibl[licznik].tytul, bibl[licznik].autor, bibl[licznik].wartosc);
+		trzy_opcje_ksiazka(&bibl[licznik]);
 		licznik++;
 	}
-	licznikp = licznik;
 	if (licznik == MAXKS)
 	{
 		fputs("Plik ksiazki.dat jest pelny.", stderr);
@@ -63,40 +66,83 @@ int main(void)
 	}
 	if (licznik > 0)
 	{
+		rewind(pksiazki);
 		puts("Oto lista Twoich ksiasek:");
 		for (index = 0; index < licznik; index++)
 		{
-			printf("%s, autor: %s, cena: %.2f zl\n", bibl[index].tytul, bibl[index].autor, bibl[index].wartosc);
+			if ('\0' != bibl[index].tytul[0])
+			{
+				printf("%s, autor: %s, cena: %.2f zl\n", bibl[index].tytul, bibl[index].autor, bibl[index].wartosc);
+				fwrite(&bibl[index], rozmiar, 1, pksiazki);
+			}
 		}
-		fwrite(&bibl[licznikp], rozmiar, licznik - licznikp, pksiazki);
 	}
 	else
 	{
 		puts("Zadnych ksiasek? Szkoda");
 	}
+	fclose(pksiazki);
 	puts("Koniec.");		
 	return 0;
 }
 
-char * wczytaj(char * z, int ile)
+void trzy_opcje_ksiazka(struct ksiazka * wsk_ksiazka)
 {
-	char * wynik;
-	char * tutaj;
-	wynik = fgets(z, ile, stdin);
-	if (wynik)
+	char ch;
+	
+	puts("Wybierz jedna z ponizszych opcji:");
+	puts("n) nastepna pozycja    m) modyfikacja pozycji    u) usuniecie pozycji");
+	printf("%s", "Podaj litere: ");
+	ch = getchar();
+	while(getchar() != '\n')
 	{
-		tutaj = strchr(z, '\n');	// szukamy nowego wiersza
-		if (tutaj)
+		continue;
+	}
+
+	while ( ch != 'n' && ch != 'm' && ch != 'u' )
+	{
+		printf("%s", "Podaj litere n, m albo u: ");
+		ch = getchar();
+		while(getchar() != '\n')
 		{
-			*tutaj = '\0';			// zamieniamy znak nowego wiersza na pusty
-		}
-		else
-		{
-			while(getchar() != '\n')
-			{
-				continue;
-			}
+			continue;
 		}
 	}
-	return wynik;
+
+	switch (ch)
+	{
+	case 'n' :
+		nastepna_pozycja();
+		break;
+	case 'm' :
+		modyfikacja_rekordu(wsk_ksiazka);
+		break;
+	default :
+		usuniecie_rekordu(wsk_ksiazka);
+	}
+}
+
+void nastepna_pozycja (void)
+{
+	;
+}
+
+void modyfikacja_rekordu(struct ksiazka * wsk_ksiazka)
+{
+	puts("Podaj nowy tytul ksiazki.");
+	wczytaj(wsk_ksiazka->tytul, MAXTYT);
+	puts("Teraz podaj autora.");
+	wczytaj(wsk_ksiazka->autor, MAXAUT);
+	puts("Teraz podaj wartosc.");
+	scanf("%f", &(wsk_ksiazka->wartosc) );
+	while (getchar() != '\n')
+	{
+		continue;
+	}
+}
+
+
+void usuniecie_rekordu(struct ksiazka * wsk_ksiazka)
+{
+	wsk_ksiazka->tytul[0] = '\0';
 }
