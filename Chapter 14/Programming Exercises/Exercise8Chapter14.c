@@ -1,10 +1,11 @@
 //  The Colossus Airlines fleet I - Exercise8Chapter14.c
-//  v0.1
+//  v1.0
 /*  Includes ------------------------------------------------------------------*/
 #include <mylib.h>
 #define NUM_OF_SEATS 12			// the number of seats
 #define FNLEN 1020
 #define SURNLEN 747
+#define FILE_NAME "seats.dat"
 
 typedef struct name {
 	char first_name[FNLEN];
@@ -29,20 +30,52 @@ int delete_a_seat_assignment(seat_t * pt_airplane);
 int main(void)
 {
 /*  Variables -----------------------------------------------------------------*/
+	FILE * fp;
+	int size = sizeof (seat_t);
+	int index = 0;
+	int j;
 	char ch;
-	seat_t airplane_one[NUM_OF_SEATS] = {
+	seat_t airplane_one[NUM_OF_SEATS] /*= {
 		{1, false, {"jojo", "ba"}}, {2, false, {"jojo", "ba"}}, {3, false, {"jojo", "ba"}},
 		{4, false, {"jojo", "ba"}}, {5, false, {"jojo", "ba"}}, {6, false, {"jojo", "ba"}},
-		{7, false, {"jojo", "ba"}}, {8, true, {"jojo", "ba"}}, {9, false, {"jojo", "ba"}},
+		{7, false, {"jojo", "ba"}}, {8, false, {"jojo", "ba"}}, {9, false, {"jojo", "ba"}},
 		{10, false, {"jojo", "ba"}}, {11, false, {"jojo", "ba"}}, {12, false, {"jojo", "ba"}}
-	};
+	}*/;
 	
 /*  Description ---------------------------------------------------------------*/
 	puts("The Colossus Airlines.");
-	puts("The program is used for seating reservation.");
+	puts("The program is used for seating reservation.\n");
 	
 /*  Code ----------------------------------------------------------------------*/
-	
+	// set up input
+	if ( (fp = fopen(FILE_NAME, "r+b")) == NULL )
+	{
+		fprintf(stderr, "Can't open %s file.\n", FILE_NAME);
+		if ( (fp = fopen("seats.dat", "w+b")) == NULL )
+		{
+			fprintf(stderr, "Can't create %s\n", FILE_NAME);
+			exit(EXIT_FAILURE);			
+		}
+		fprintf(stdout, "The new %s file has been created.\n", FILE_NAME);
+	}
+	rewind(fp);
+
+	// set up the array of structures
+	while (index < NUM_OF_SEATS && 1 == fread(&airplane_one[index++], size, 1, fp))
+	{
+		continue;
+	}
+	if (index != NUM_OF_SEATS)
+	{
+		for (j = 0; j < NUM_OF_SEATS; j++)
+		{
+			airplane_one[j].id_number = j + 1;
+			airplane_one[j].assigned = false;
+		}
+		puts("All assignments have been reset.");
+	}
+
+	// main loop
 	while ( 'f' != (ch = seat_assignment_menu()) )
 	{
 		switch (ch)
@@ -64,7 +97,13 @@ int main(void)
 		} 
 	}
 
+	// set up input
+	rewind(fp);
+	fwrite(airplane_one, size, NUM_OF_SEATS, fp);
+
+
 /*  Ending --------------------------------------------------------------------*/
+	fclose(fp);
 	end('#');
 	return 0;
 }
@@ -163,6 +202,7 @@ void show_alphabetical_list_of_seats(seat_t * pt_airplane, int num)
 int assign_a_customer_to_a_seat_assignment(seat_t * pt_airplane)
 {
 	int temp;
+	int i;
 	printf("%s", "Please enter a seat number (0 to quit): ");
 	while ( (1 != scanf("%d", &temp)) || (temp < 0) || (temp > 12) )
 	{
@@ -177,12 +217,38 @@ int assign_a_customer_to_a_seat_assignment(seat_t * pt_airplane)
 
 	if ( !((pt_airplane + temp - 1)->assigned) )
 	{
+		puts("Please enter a seat holder's first name (press [enter] at the start of a line to stop.):");
+		get_string((pt_airplane + temp - 1)->seat_holder.first_name, FNLEN);
+		if ('\0' == (pt_airplane + temp - 1)->seat_holder.first_name[0])
+		{
+			return 0;
+		}		
+
+		puts("Please enter a seat holder's surname (press [enter] at the start of a line to stop.):");
+		get_string((pt_airplane + temp - 1)->seat_holder.surname, SURNLEN);
+		if ('\0' == (pt_airplane + temp - 1)->seat_holder.surname[0])
+		{
+			return 0;
+		}
+
 		(pt_airplane + temp - 1)->assigned = true;
-		printf("The seat %d has been assigned successfully.", temp);
+		printf("The seat %d has been assigned for %s %s successfully.", temp, (pt_airplane + temp - 1)->seat_holder.first_name, (pt_airplane + temp - 1)->seat_holder.surname);
 	}
 	else
 	{
-		puts("The place is already assigned.");
+		printf("The place is already assigned by %c", (pt_airplane + temp - 1)->seat_holder.first_name[0]);
+		for (i = 0; i < (strlen((pt_airplane + temp - 1)->seat_holder.first_name) - 1); i++)
+		{
+			putchar('*');
+		}
+		putchar(' ');
+		printf("%c", (pt_airplane + temp - 1)->seat_holder.surname[0]);
+		for (i = 0; i < (strlen((pt_airplane + temp - 1)->seat_holder.surname) - 1); i++)
+		{
+			putchar('*');
+		}
+		putchar('.');
+		putchar('\n');
 		return 0;
 	}
 	return 1;
