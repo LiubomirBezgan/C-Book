@@ -1,11 +1,14 @@
-//  The Colossus Airlines fleet I - Exercise8Chapter14.c
-//  v1.1
+//  The Colossus Airlines fleet II - Exercise9Chapter14.c
+//  v1.0
 /*  Includes ------------------------------------------------------------------*/
 #include <mylib.h>
 #define NUM_OF_SEATS 12			// the number of seats
+#define NUM_OF_FLIGHTS 4
 #define FNLEN 1020
 #define SURNLEN 747
-#define FILE_NAME "seats.dat"
+
+const int flight_number[] = {102, 311, 444, 519};
+const char * files[] = {"flight102.dat", "flight311.dat", "flight444.dat", "flight519.dat"};
 
 typedef struct name {
 	char first_name[FNLEN];
@@ -18,13 +21,15 @@ typedef struct airplane_seat {
 	name_t seat_holder;
 } seat_t;
 
+int choice_of_flights(void);
 char my_getchar(void);
-char seat_assignment_menu(void);
+char seat_assignment_menu_flights(int choice);
 void show_number_of_empty_seats(seat_t * pt_airplane, int num);
 void show_list_of_empty_seats(seat_t * pt_airplane, int num);
-void show_alphabetical_list_of_seats(seat_t * pt_airplane, int num);
+void show_alphabetical_list_of_seats_flights(seat_t * pt_airplane, int num);
 int assign_a_customer_to_a_seat_assignment(seat_t * pt_airplane);
 int delete_a_seat_assignment(seat_t * pt_airplane);
+FILE * set_up_input (const char * file_name);
 
 /*  Main ----------------------------------------------------------------------*/
 int main(void)
@@ -32,85 +37,133 @@ int main(void)
 /*  Variables -----------------------------------------------------------------*/
 	FILE * fp;
 	int size = sizeof (seat_t);
-	int index = 0;
+	int index;
 	int j;
+	int choice;
 	char ch;
-	seat_t airplane_one[NUM_OF_SEATS];
+	seat_t airplane[NUM_OF_FLIGHTS][NUM_OF_SEATS];
 	
 /*  Description ---------------------------------------------------------------*/
 	puts("The Colossus Airlines.");
 	puts("The program is used for seating reservation.\n");
 	
 /*  Code ----------------------------------------------------------------------*/
-	// set up input
-	if ( (fp = fopen(FILE_NAME, "r+b")) == NULL )
+
+	// a choice of flights
+	choice = choice_of_flights();
+
+	while (choice >= 0)
 	{
-		fprintf(stderr, "Can't open %s file.\n", FILE_NAME);
-		if ( (fp = fopen(FILE_NAME, "w+b")) == NULL )
+		// set up input
+		fp = set_up_input(files[choice]);
+
+		// set up the array of structures
+		index = 0;
+		while (index < NUM_OF_SEATS && 1 == fread(&airplane[choice][index++], size, 1, fp))
 		{
-			fprintf(stderr, "Can't create %s\n", FILE_NAME);
-			exit(EXIT_FAILURE);			
+			continue;
 		}
-		fprintf(stdout, "The new %s file has been created.\n", FILE_NAME);
-	}
-	rewind(fp);
-
-	// set up the array of structures
-	while (index < NUM_OF_SEATS && 1 == fread(&airplane_one[index++], size, 1, fp))
-	{
-		continue;
-	}
-	if (index != NUM_OF_SEATS)
-	{
-		for (j = 0; j < NUM_OF_SEATS; j++)
+		if (index != NUM_OF_SEATS)
 		{
-			airplane_one[j].id_number = j + 1;
-			airplane_one[j].assigned = false;
+			for (j = 0; j < NUM_OF_SEATS; j++)
+			{
+				airplane[choice][j].id_number = j + 1;
+				airplane[choice][j].assigned = false;
+			}
+			puts("All assignments have been reset.");
 		}
-		puts("All assignments have been reset.");
-	}
 
-	// main loop
-	while ( 'f' != (ch = seat_assignment_menu()) )
-	{
-		switch (ch)
+		// main loop
+		while ( 'f' != (ch = seat_assignment_menu_flights(choice)) )
 		{
-		case 'a' :
-			show_number_of_empty_seats(airplane_one, NUM_OF_SEATS);
-			break;
-		case 'b' :
-			show_list_of_empty_seats(airplane_one, NUM_OF_SEATS);
-			break;
-		case 'c' :
-			show_alphabetical_list_of_seats(airplane_one, NUM_OF_SEATS);
-			break;
-		case 'd' :
-			assign_a_customer_to_a_seat_assignment(airplane_one);
-			break;
-		default :
-			delete_a_seat_assignment(airplane_one);
-		} 
+			switch (ch)
+			{
+			case 'a' :
+				show_number_of_empty_seats(airplane[choice], NUM_OF_SEATS);
+				break;
+			case 'b' :
+				show_list_of_empty_seats(airplane[choice], NUM_OF_SEATS);
+				break;
+			case 'c' :
+				show_alphabetical_list_of_seats_flights(airplane[choice], NUM_OF_SEATS);
+				break;
+			case 'd' :
+				assign_a_customer_to_a_seat_assignment(airplane[choice]);
+				break;
+			default :
+				delete_a_seat_assignment(airplane[choice]);
+			} 
+		}
+
+		// set up input
+		rewind(fp);
+		fwrite(airplane[choice], size, NUM_OF_SEATS, fp);
+		fclose(fp);
+
+		choice = choice_of_flights();
 	}
 
-	// set up input
-	rewind(fp);
-	fwrite(airplane_one, size, NUM_OF_SEATS, fp);
+
 
 /*  Ending --------------------------------------------------------------------*/
-	fclose(fp);
 	end('#');
 	return 0;
 }
 
-char seat_assignment_menu(void)
+int choice_of_flights(void)
+{
+	int temp;
+	int i;
+	bool found = false;
+	puts("\nPlease select a flight (q to quit):");
+	puts("    102        311    ");
+	puts("    444        519    ");
+	if (1 != scanf("%d", &temp))
+	{
+		puts("Thank you and goodbye.");
+		return -1;
+	}
+	clear_buffer();
+	for (i = 0; i < NUM_OF_FLIGHTS; i++)
+	{
+		if (temp == flight_number[i])
+		{
+			found = true;
+			break;
+		}
+	}
+	while (!found)
+	{
+		puts("Please enter 102, 311, 444, 519 or q to quit:");
+		if (1 != scanf("%d", &temp))
+		{
+			puts("Thank you and goodbye.");
+			return -1;
+		}
+		clear_buffer();
+		for (i = 0; i < NUM_OF_FLIGHTS; i++)
+		{
+			if (temp == flight_number[i])
+			{
+				found = true;
+				break;
+			}
+		}
+	}
+	return i;
+
+}
+
+char seat_assignment_menu_flights(int choice)
 {
 	char ch;
 
 	puts("\n-------------------------------------------------------------------------------");
+	printf("Welcome to flight %d menu! ", flight_number[choice]);
 	puts("To choose a function, enter its letter label:");
 	puts("a) Show number of empty seats         d) Assign a customer to a seat assignment");
 	puts("b) Show list of empty seats           e) Delete a seat assignment");
-	puts("c) Show alphabetical list of seats    f) Quit");
+	puts("c) Show alphabetical list of seats    f) Choose a flight");
 	puts("-------------------------------------------------------------------------------");
 
 	ch = my_getchar();
@@ -174,21 +227,20 @@ void show_list_of_empty_seats(seat_t * pt_airplane, int num)
 	}
 }
 
-void show_alphabetical_list_of_seats(seat_t * pt_airplane, int num)
+void show_alphabetical_list_of_seats_flights(seat_t * pt_airplane, int num)
 {
 	int i;
 	puts("Here is the alphabetical list of seats:");
 
 	for (i = 1; i <= num; i++)
 	{
-		printf("%2d", (pt_airplane + i - 1)->id_number);
-		if (0 != i % 2)
+		if ((pt_airplane + i - 1)->assigned)
 		{
-			printf("%s", "    ");
+			printf("%2d - %s %s\n", (pt_airplane + i - 1)->id_number, (pt_airplane + i - 1)->seat_holder.first_name, (pt_airplane + i - 1)->seat_holder.surname);
 		}
 		else
 		{
-			putchar('\n');
+			printf("%2d\n", (pt_airplane + i - 1)->id_number);
 		}
 	}
 }
@@ -226,7 +278,7 @@ int assign_a_customer_to_a_seat_assignment(seat_t * pt_airplane)
 		}
 
 		(pt_airplane + temp - 1)->assigned = true;
-		printf("The seat %d has been assigned for %s %s successfully.", temp, (pt_airplane + temp - 1)->seat_holder.first_name, (pt_airplane + temp - 1)->seat_holder.surname);
+		printf("The seat %d has been assigned for %s %s successfully.\n", temp, (pt_airplane + temp - 1)->seat_holder.first_name, (pt_airplane + temp - 1)->seat_holder.surname);
 	}
 	else
 	{
@@ -266,12 +318,29 @@ int delete_a_seat_assignment(seat_t * pt_airplane)
 	if ( ((pt_airplane + temp - 1)->assigned) )
 	{
 		(pt_airplane + temp - 1)->assigned = false;
-		printf("The assignment of seat %d has been deleted successfully.", temp);
+		printf("The assignment of seat %d has been deleted successfully.\n", temp);
 	}
 	else
 	{
-		puts("The place is not assigned.");
+		puts("The place is not assigned.\n");
 		return 0;
 	}
 	return 1;
+}
+
+FILE * set_up_input (const char * file_name)
+{
+	FILE * fpt;
+	if ( (fpt = fopen(file_name, "r+b")) == NULL )
+	{
+		fprintf(stderr, "Can't open %s file.\n", file_name);
+		if ( (fpt = fopen(file_name, "w+b")) == NULL )
+		{
+			fprintf(stderr, "Can't create %s\n", file_name);
+			exit(EXIT_FAILURE);			
+		}
+		fprintf(stdout, "The new %s file has been created.\n", file_name);
+	}
+	rewind(fpt);
+	return fpt;
 }
