@@ -6,6 +6,7 @@
 #define LIMIT 1000
 
 void lottery(int * array, int array_size, int number_of_picks);
+bool isfound(int what, const int * where, int until);
 
 /*  Main ----------------------------------------------------------------------*/
 int main(void)
@@ -36,7 +37,7 @@ int main(void)
 	srand((unsigned int) time(0));
 	for (i = 0; i < size; i++)
 	{
-		pt_main_array[i] = rand() % (LIMIT+1);		// a random number from the range of 0 to LIMIT
+		pt_main_array[i] = rand() % (LIMIT + 1);		// a random number from the range of 0 to LIMIT
 	}
 
 	// show the array
@@ -59,9 +60,7 @@ int main(void)
 		puts("Wrong values. Please try again.\n");
 		puts("Please enter the number of picks:");
 	}
-
-
-
+	putchar('\n');
 
 	lottery(pt_main_array, size, picks);
 
@@ -75,27 +74,62 @@ int main(void)
 void lottery(int * array, int array_size, int number_of_picks)
 {
 	int i;
-	int ** pt_picks;
-	pt_picks = (int **) malloc(number_of_picks * sizeof(int *));
+	int temp;
+	int picks[number_of_picks];
 
+	// array initialization
 	for (i = 0; i < number_of_picks; i++)
 	{
-		pt_picks[i] = NULL;
-	}
-	for (i = 0; i < number_of_picks; i++)
-	{
-		printf("%p\n", pt_picks[i]);
+		picks[i] = -1;
 	}
 
-	puts("Here are your picks:");
+	// filling the picks array
 	for (i = 0; i < number_of_picks; i++)
 	{
-		printf("%4d ", *(pt_picks[i]));
+		srand((unsigned int) time(0));
+		temp = rand() % array_size;
+		while ( isfound(temp, picks, i) )
+		{
+			temp = rand() % array_size;
+		}	
+		picks[i] = temp;
+	}
+
+	// numbers of your picks demonstration
+	puts("Here are numbers of your picks:");
+	for (i = 0; i < number_of_picks; i++)
+	{
+		printf("%4d ", 1 + picks[i]);
 		if (0 == (i + 1) % 10)
 		{
 			putchar('\n');
 		}
 	}
+	putchar('\n');
 
-	free(pt_picks);
+	// values of your picks demonstration
+	puts("Here are values of your picks:");
+	for (i = 0; i < number_of_picks; i++)
+	{
+		printf("%4d ", array[picks[i]]);
+		if (0 == (i + 1) % 10)
+		{
+			putchar('\n');
+		}
+	}
+	putchar('\n');
+}
+
+bool isfound(int what, const int * where, int until)
+{
+	bool result = false;
+	int j;
+	for (j = 0; j < until; j++)
+	{
+		if (where[j] == what)
+		{
+			result = true;
+		}
+	}
+	return result;
 }
