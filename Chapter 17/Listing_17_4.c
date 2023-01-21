@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "Listing_17_3.h"
+#include "lista.h"
 void pokazfilm(Pozycja pozycja);
 char * wczytaj(char * z, int ile);
 
@@ -53,7 +53,7 @@ int main(void)
 		puts("Oto lista filmow:");
 		Przejdz(&filmy, pokazfilm);
 	}
-	printf("Wpisales %d filmow.\n", LiczbaPozycja(&filmy));
+	printf("Wpisales %d filmow.\n", LiczbaPozycji(&filmy));
 
 	// porzadki
 	CzyscListe(&filmy);
