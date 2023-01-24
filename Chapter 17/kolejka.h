@@ -5,7 +5,11 @@
 
 // TUTAJ WSTAW DEFINICJE TYPU POZYCJA
 // NA PRZYKLAD,
-typedef int Pozycja;	// na potrzeby programu Listing_17_8.c
+//typedef int Pozycja;	// na potrzeby programu Listing_17_8.c
+typedef struct pozycja {
+	long przybycie;
+	int czaskons;
+} Pozycja;// na potrzeby programu Listing_17_9.c
 // LUB typedef struct pozycja {int slon; int zyrafa;} Pozycja;
 
 #define MAXKOLEJKA 10
