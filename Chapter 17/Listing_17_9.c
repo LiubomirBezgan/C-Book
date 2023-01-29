@@ -1,5 +1,5 @@
 // Listing_17_9.c - korzysta z interfejsu "kolejka"
-// kompilowac lacznie z Listing_17_8.c
+// kompilowac lacznie z Listing_17_7.c
 #include <stdio.h>
 #include <stdlib.h>						// dla funkcji rand() i srand()
 #include <time.h>						// dla funkcji time()
