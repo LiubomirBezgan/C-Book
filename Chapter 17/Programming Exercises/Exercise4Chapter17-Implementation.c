@@ -116,7 +116,7 @@ int NajmniejszaKolejka(const Kolejka * kol, int liczba_kolejek, long ziarno)
 		}
 		else	// jesli LiczbaPozycji(&kol[0]) == LiczbaPozycji(&kol[1])
 		{
-			return (int) rand() % 2;	// losowo zwraca 0 albo 1
+			return rand() % 2;	// losowo zwraca 0 albo 1
 		}
 	}
 	/*else
