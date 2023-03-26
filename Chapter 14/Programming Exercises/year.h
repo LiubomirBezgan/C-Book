@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #define MONTHS 12
-#define NAME_LEN 12
+#define NAME_LEN 10
 #define SHORT_FROM_LEN 4
 
 int days(char * month_name);
